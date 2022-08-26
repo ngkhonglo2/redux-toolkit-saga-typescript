@@ -7,6 +7,8 @@ import './index.css';
 import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
+// import { ConnectedRouter } from 'connected-react-router'
+// import { history } from 'utils';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -15,7 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <CssBaseline/>
+        <CssBaseline />
         <App />
       </BrowserRouter>
     </Provider>

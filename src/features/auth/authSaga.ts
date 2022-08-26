@@ -1,9 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { LoginPayload } from './authType';
-import { login, loginSuccess, loginFail, logout } from './authSlice'
 import { delay, put, takeLatest } from 'redux-saga/effects';
+import { login, loginFail, loginSuccess, logout } from './authSlice';
+import { LoginPayload } from './authType';
+import { push } from 'connected-react-router'
 
 function* loginSaga(actions: PayloadAction<LoginPayload>) {
+  console.log('aaaaa', actions.payload);
   try {
     yield delay(1000)
     localStorage.setItem('access_token', 'fake_token')
@@ -11,6 +13,7 @@ function* loginSaga(actions: PayloadAction<LoginPayload>) {
       id: 1,
       name: 'phongnt',
     }))
+    yield put(push('/admin'))
   } catch (error) {
     yield put(loginFail({ error: true }))
   }

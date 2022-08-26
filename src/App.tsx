@@ -1,6 +1,6 @@
 import React from 'react';
 import { NotFound, PrivateRoute } from 'components/Common';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { AdminLayout } from './components/Layout';
 import LoginPage from './features/auth/page/LoginPage';

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Navigate, Route, RouteProps } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 
-export function PrivateRoute(props: RouteProps) {
+export function PrivateRoute() {
   // check if user is logged in
   // If yes, show route
   // Otherwise, navigate to login page
-  const isLoggedIn = Boolean(localStorage.getItem('access_token'))
-  if (!isLoggedIn) return <Navigate to={'/login'} />
-  return (
-    <Route {...props}/>
-  )
+  const isLoggedIn = Boolean(localStorage.getItem('access_token')) 
+  return isLoggedIn ? <Outlet/> : <Navigate to={'/login'} />
 }

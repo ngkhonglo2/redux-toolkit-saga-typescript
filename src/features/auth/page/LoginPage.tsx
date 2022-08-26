@@ -6,7 +6,7 @@ import { login } from '../authSlice';
 const LoginPage = () => {
   const dispatch = useAppDispatch()
 
-  const handleLoginClick = () => {
+  const handleLoginClick = async () => {
     dispatch(login({
       username: '',
       password: '',
