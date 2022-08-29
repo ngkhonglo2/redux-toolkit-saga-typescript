@@ -23,7 +23,7 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
           </NavLink>
-          <NavLink to={'/admin/student'} style={{textDecoration: 'none', color: 'inherit'}}>
+          <NavLink to={'/admin/students'} style={{textDecoration: 'none', color: 'inherit'}}>
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
