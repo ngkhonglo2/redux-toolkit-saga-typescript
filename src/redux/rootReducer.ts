@@ -7,10 +7,13 @@ import dashboardReducer from '../redux/dashboard/slice';
 import { DashboardState } from "./dashboard/type";
 import studentReducer from "./student/slice";
 import { StudentState } from "./student/type";
+import cityReducer from "./city/slice"
+import { CityState } from "./city/type";
 export interface ApplicationState {
   authReducer: AuthState
   dashboardReducer: DashboardState
   studentReducer: StudentState
+  cityReducer: CityState
 }
 
 const rootReducer = combineReducers({
@@ -18,6 +21,7 @@ const rootReducer = combineReducers({
   authReducer,
   dashboardReducer,
   studentReducer,
+  cityReducer,
 })
 
 export default rootReducer

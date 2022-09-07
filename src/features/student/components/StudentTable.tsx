@@ -1,12 +1,16 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
-import { Student } from "models"
+import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { City, Student } from "models"
 import { capitalizeString, getMarkColor } from "utils"
 
 export interface StudentTableProps {
   studentList: Student[]
+  cityMap: {
+    [key: string]: City
+  }
+  onEdit: (student: Student) => void
 }
 
-const StudentTable = ({ studentList }: StudentTableProps) => {
+const StudentTable = ({ studentList, cityMap, onEdit }: StudentTableProps) => {
   return (
     <>
       <TableContainer>
@@ -32,6 +36,15 @@ const StudentTable = ({ studentList }: StudentTableProps) => {
                   <Box color={getMarkColor(student.mark)} fontWeight="bold">
                     {student.mark}
                   </Box>
+                </TableCell>
+                <TableCell>{cityMap[student.city]?.name}</TableCell>
+                <TableCell>
+                  <Button size="small" color="primary" onClick={()=> onEdit(student)}>
+                    Edit
+                  </Button>
+                  <Button size="small" color="warning">
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

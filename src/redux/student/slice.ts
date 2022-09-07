@@ -6,7 +6,10 @@ import { StudentState } from "./type";
 const initialState: StudentState = {
   loading: false,
   list: [],
-  filter: {},
+  filter: {
+    _page: 1,
+    _limit: 15,
+  },
   pagination: {
     _page: 1,
     _limit: 15,
@@ -29,6 +32,10 @@ const studentSlice = createSlice({
     fetchStudentListFail(state) {
       state.loading = false
     },
+    setFilter(state, action: PayloadAction<ListParams>) {
+      state.filter = action.payload
+    },
+    setFilterWithDebounce(state, action: PayloadAction<ListParams>) {},
   }
 })
 
@@ -36,9 +43,13 @@ export const {
   fetchStudentList,
   fetchStudentListSuccess,
   fetchStudentListFail,
+  setFilter,
+  setFilterWithDebounce,
 } = studentSlice.actions
 
 export const selectStudentList = (state: RootState) => state.studentReducer.list
+export const selectStudentLoading = (state: RootState) => state.studentReducer.loading
+export const selectStudentFilter = (state: RootState) => state.studentReducer.filter
 export const selectStudentPagination = (state: RootState) => state.studentReducer.pagination
 
 export default studentSlice.reducer
