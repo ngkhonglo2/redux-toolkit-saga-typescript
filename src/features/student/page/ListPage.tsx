@@ -14,7 +14,6 @@ const ListPage = () => {
   const studentList = useAppSelector(slice.selectStudentList)
   const pagination = useAppSelector(slice.selectStudentPagination)
   const filter = useAppSelector(slice.selectStudentFilter)
-  const loading = useAppSelector(slice.selectStudentLoading)
   const cityMap = useAppSelector(selectCityMap);
   const cityList = useAppSelector(selectCityList);
 

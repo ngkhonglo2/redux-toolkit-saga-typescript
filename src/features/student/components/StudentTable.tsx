@@ -38,7 +38,7 @@ const StudentTable = ({ studentList, cityMap, onEdit }: StudentTableProps) => {
                   </Box>
                 </TableCell>
                 <TableCell>{cityMap[student.city]?.name}</TableCell>
-                <TableCell>
+                <TableCell align="right">
                   <Button size="small" color="primary" onClick={()=> onEdit(student)}>
                     Edit
                   </Button>
