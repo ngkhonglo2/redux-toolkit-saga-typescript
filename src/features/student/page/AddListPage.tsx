@@ -3,8 +3,9 @@ import { Box, Typography } from "@mui/material";
 import studentApi from "api/studentApi";
 import { Student } from "models";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import StudentForm from "../components/StudentForm";
 
 const AddListPage = () => {

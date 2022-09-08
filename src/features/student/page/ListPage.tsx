@@ -1,10 +1,14 @@
 import { Box, Button, Pagination, Typography } from "@mui/material";
+import studentApi from "api/studentApi";
 import { useAppDispatch, useAppSelector } from "app/hooks";
-import { Student } from "models";
+import { ListParams, Student } from "models";
 import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import { selectCityList, selectCityMap, fetchCityList } from "redux/city/slice";
 import * as slice from "redux/student/slice";
+import StudentFilters from "../components/StudentFilters";
 import StudentTable from "../components/StudentTable";
 
 const ListPage = () => {
@@ -19,7 +23,7 @@ const ListPage = () => {
 
   const dispatch = useAppDispatch()
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(slice.fetchStudentList(filter))
     dispatch(fetchCityList())
   }, [dispatch, filter])
@@ -30,9 +34,32 @@ const ListPage = () => {
       _page: page,
     }))
   }
+  const handleSearchChange = (newFilter: ListParams) => {
+    dispatch(slice.setFilterWithDebounce(newFilter));
+  };
+
+  const handleFilterChange = (newFilter: ListParams) => {
+    dispatch(slice.setFilter(newFilter))
+  }
 
   const handleEditStudent = async (student: Student) => {
     navigate(`${pathname}/${student.id}`)
+  }
+
+  const handleDeleteStudent = async (student: Student) => {
+    try {
+      // Remove student API
+      await studentApi.remove(student?.id || '');
+
+      toast.success('Remove student successfully!');
+
+      // Trigger to re-fetch student list with current filter
+      const newFilter = { ...filter };
+      dispatch(slice.setFilter(newFilter));
+    } catch (error) {
+      // Toast error
+      console.log('Failed to fetch student', error);
+    }
   }
 
   return (
@@ -55,7 +82,22 @@ const ListPage = () => {
           </Button>
         </Link>
       </Box>
-      <StudentTable studentList={studentList} cityMap={cityMap} onEdit={handleEditStudent}/>
+
+      <Box mb={3}>
+        <StudentFilters
+          filter={filter}
+          cityList={cityList}
+          onSearchChange={handleSearchChange}
+          onChange={handleFilterChange}
+        />
+      </Box>
+
+      <StudentTable
+        studentList={studentList}
+        cityMap={cityMap}
+        onEdit={handleEditStudent}
+        onDelete={handleDeleteStudent}
+      />
 
       <Box my={2} display='flex' justifyContent='center'>
         <Pagination
@@ -65,6 +107,11 @@ const ListPage = () => {
           onChange={handlePageChange}
         />
       </Box>
+
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
     </Box>
   )
 }

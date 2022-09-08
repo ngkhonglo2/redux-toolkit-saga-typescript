@@ -14,12 +14,12 @@ function* fetchStudentListSaga(action: PayloadAction<ListParams>) {
   }
 }
 
-// function* handleSearchDebounce(action: PayloadAction<ListParams>) {
-//   console.log(action.payload);
-//   yield put(slice.setFilter(action.payload))
-// }
+function* handleSearchDebounce(action: PayloadAction<ListParams>) {
+  console.log(action.payload);
+  yield put(slice.setFilter(action.payload))
+}
 
 export default function* studentSaga() {
   yield takeLatest(slice.fetchStudentList.type, fetchStudentListSaga)
-  // yield debounce(500, slice.setFilterWithDebounce.type, handleSearchDebounce)
+  yield debounce(500, slice.setFilterWithDebounce.type, handleSearchDebounce)
 }
